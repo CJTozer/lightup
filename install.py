@@ -2,6 +2,8 @@
 import sh
 import os.path
 
+# TODO Check that sh is installed and print a nice error if not.
+
 # Link lightup.py to /etc/cron.hourly
 script_path = os.path.join(os.path.abspath("./lightup.py"))
 if not os.path.exists(script_path):

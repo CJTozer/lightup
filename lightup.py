@@ -3,6 +3,7 @@ import sh
 import os.path
 import logging.handlers
 import sys
+import yaml
 
 # Set up logging
 logger = logging.getLogger("lightup.py")
@@ -22,11 +23,35 @@ stdout_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %
 stdout_handler.setFormatter(stdout_formatter)
 logger.addHandler(stdout_handler)
 
-# Test command - git status
-git = sh.git.bake(_cwd='.')
-status = git.status()
-logger.info(status)
 
-# Get the real location of this script
-real_loc = os.path.realpath(__file__)
-logger.info(real_loc)
+class Lightup(object):
+
+    def __init__(self, base_dir):
+        self.base_dir = base_dir
+        self.git = sh.git.bake(_cwd=base_dir)
+
+        # Load up the config
+        self._get_config()
+
+
+    def _get_config(self):
+        config_file = os.path.join(self.base_dir, ".lightup.yaml")
+        with open(config_file, 'r') as config:
+            self.config = yaml.load(config)
+            logger.debug(config)
+
+
+    def status(self):
+        status = self.git.status()
+        logger.info(status)
+
+
+if __name__ == "__main__":
+    # Get the real location of this script
+    real_loc = os.path.realpath(__file__)
+    logger.info(real_loc)
+
+    # The location of the parent codebase that has lightup embedded
+    base_loc = os.path.join(os.path.dirname(real_loc), "..")
+    l = Lightup(base_dir=base_loc)
+    l.status()
