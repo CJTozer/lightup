@@ -27,10 +27,10 @@ logger.addHandler(stdout_handler)
 
 class Lightup(object):
 
-    def __init__(self, lightup_base_dir):
+    def __init__(self):
         # Get the _real_ lightup dir containing this script.
         self.lightup_base_dir = base_loc = os.path.dirname(os.path.realpath(__file__))
-        self.project_dir = os.path.join(lightup_base_dir, "..")
+        self.project_dir = os.path.join(self.lightup_base_dir, "..")
         self.git = sh.git.bake(_cwd=self.project_dir)
 
         # Load up the config
