@@ -1,3 +1,7 @@
 #!/usr/bin/env python
 
-print("Hello World")
+import sh
+git = sh.git.bake(_cwd='.')
+
+status = git.status()
+print(status)
