@@ -1,7 +1,7 @@
 def merge_dicts(defaults, overrides):
     """Merges defaults and overrides.  overrides cannot define new keys not in defaults"""
     if isinstance(overrides, dict) and isinstance(defaults, dict):
-        for k,v in defaults.iteritems():
+        for k,v in defaults.items():
             if k not in overrides:
                 overrides[k] = v
             else:
