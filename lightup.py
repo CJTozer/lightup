@@ -28,7 +28,8 @@ logger.addHandler(stdout_handler)
 class Lightup(object):
 
     def __init__(self, lightup_base_dir):
-        self.lightup_base_dir = lightup_base_dir
+        # Get the _real_ lightup dir containing this script.
+        self.lightup_base_dir = base_loc = os.path.dirname(os.path.realpath(__file__))
         self.project_dir = os.path.join(lightup_base_dir, "..")
         self.git = sh.git.bake(_cwd=self.project_dir)
 
@@ -67,11 +68,5 @@ class Lightup(object):
 
 
 if __name__ == "__main__":
-    # Get the real location of this script
-    real_loc = os.path.realpath(__file__)
-    logger.info(real_loc)
-
-    # The location of the parent codebase that has lightup embedded
-    base_loc = os.path.dirname(real_loc)
-    l = Lightup(lightup_base_dir=base_loc)
+    l = Lightup()
     l.status()
