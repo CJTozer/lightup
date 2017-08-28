@@ -49,6 +49,7 @@ class Lightup(object):
             default_config = yaml.load(config)
 
         self.config = merge_dicts(defaults=default_config, overrides=user_config)
+        logger.debug(default_config)
         logger.debug(self.config)
 
 
