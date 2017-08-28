@@ -61,7 +61,7 @@ class Lightup(object):
 
     def install(self):
         # Link lightup.py to /etc/cron.hourly
-        script_name = os.path.join("etc", "cron.hourly", self.config("script_name"))
+        script_name = os.path.join("etc", "cron.hourly", self.config["script_name"])
         logger.info("Installing script to %s" % script_name)
         with sh.contrib.sudo:
             sh.ln("-s", os.path.abspath(__file__), script_name)
