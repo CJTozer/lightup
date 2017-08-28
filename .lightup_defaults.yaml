@@ -1,1 +1,4 @@
 script_name: lightup.py
+version: 0.0.1
+post_install:
+  0.0.1: echo No post-install script specified in 0.0.1
