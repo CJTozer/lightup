@@ -49,8 +49,7 @@ class Lightup(object):
             default_config = yaml.load(config)
 
         self.config = merge_dicts(defaults=default_config, overrides=user_config)
-        logger.debug(default_config)
-        logger.debug(self.config)
+        logger.debug("Config: %s" % self.config)
 
 
     def status(self):
@@ -59,9 +58,10 @@ class Lightup(object):
 
     def install(self):
         # Link lightup.py to /etc/cron.hourly
-        # TODO Get the name to give the script.
+        script_name = os.path.join("etc", "cron.hourly". self.config("script_name"))
+        logger.info("Installing script to %s" % script_name)
         with sh.contrib.sudo:
-            sh.ln("-s", os.path.abspath(__file__), "/etc/cron.hourly/lightup.py")
+            sh.ln("-s", os.path.abspath(__file__), script_name)
 
 
 if __name__ == "__main__":
