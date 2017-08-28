@@ -39,7 +39,7 @@ class Lightup(object):
 
     def _get_config(self):
         user_config_file = os.path.join(self.project_dir, ".lightup.yaml")
-        self.debug("User config file: %s" % user_config_file)
+        logger.debug("User config file: %s" % user_config_file)
         if os.path.isfile(user_config_file):
             with open(user_config_file, 'r') as config:
                 user_config = yaml.load(config)
@@ -47,7 +47,7 @@ class Lightup(object):
             user_config = {}
 
         default_config_file = os.path.join(self.lightup_base_dir, ".lightup_defaults.yaml")
-        self.debug("Default config file: %s" % default_config_file)
+        logger.debug("Default config file: %s" % default_config_file)
         with open(default_config_file, 'r') as config:
             default_config = yaml.load(config)
 
